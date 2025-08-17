@@ -16,8 +16,7 @@ const
 
 var bodyParser = require('body-parser')
 const
-	cookieParser = require('cookie-parser')
-,	sessions = require('./middlewares/session')
+	sessions = require('./middlewares/session')
 ,	i18next_mdw = require('./middlewares/i18next')
 ,   i18next = require('i18next')
 ,   middleware = require('i18next-http-middleware')
@@ -43,10 +42,6 @@ i18next
 	})
 
 app
-	.set('view engine', 'ejs')
-	.set('views', './Views')
-	.use(cookieParser(process.env.crypto_salt))
-	.use(express.static('Views/_public'))
 	.use(cors())
 	.use(bodyParser.json())
 	.use(express.json())

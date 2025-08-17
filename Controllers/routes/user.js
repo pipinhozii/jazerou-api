@@ -1,14 +1,22 @@
 const
     router = require('express').Router()
-,   { body, checkExact, Result } = require('express-validator')
+,   { body, checkExact, Result, validationResult } = require('express-validator')
 ,   { run_model_script } = require('../db')
-,   { return_if_validation_errors } = require('./_static')
 ,   ten_minute_domains = require('disposable-email-domains')
 ,   wildcards = require('disposable-email-domains/wildcard.json')
 ,   { get_default_salty_hash } = require('../crypto')
 ,   session = require('../_session')
 ,   MAIN_DB = 'ja-zerou'
 ;
+
+function return_if_validation_errors(req, res, next) {
+    const result = validationResult(req);
+    if (result && result.errors && result.errors.length > 0) {
+        res.status(400).send({ errors: result.errors });
+    } else {
+        next();
+    }
+}
 
 router
     .post('/user/login',

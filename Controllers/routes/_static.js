@@ -43,14 +43,7 @@ module.exports = {
             }
         })
     }
-    , return_if_validation_errors: (req, res, next) => {
-        const result = validationResult(req);
-        if (result && result.errors && result.errors.length > 0) {
-            res.status(400).send({ errors: result.errors });
-        } else {
-            next();
-        }
-    }
+    , 
 }
 
 for(const asset_files_path of auth_routes) {
